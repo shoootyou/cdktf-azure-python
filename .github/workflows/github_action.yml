@@ -27,10 +27,10 @@ jobs:
           node-version: 16
       - name: Install cdktf-cli
         run: |
-          npm install --global cdktf-cli@latest
+          npm install --location=global cdktf-cli@latest
       - name: Run tests
         run: |
-          cdktf --version
+          cdktf plan
 
 
   close_pull_request_job:
