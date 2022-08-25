@@ -40,6 +40,7 @@ jobs:
           AzureTenantID: ${{ secrets.AzureTenantID }}
           AzureSubscriptionID: ${{ secrets.AzureSubscriptionID }}
           AzureClientSecret: ${{ secrets.AzureClientSecret }}
+          TerraformOrganization: ${{ secrets.TerraformOrganization }}
           TerraformToken: ${{ secrets.TerraformToken }}
         run: |
           cdktf plan
@@ -73,6 +74,7 @@ jobs:
           AzureTenantID: ${{ secrets.AzureTenantID }}
           AzureSubscriptionID: ${{ secrets.AzureSubscriptionID }}
           AzureClientSecret: ${{ secrets.AzureClientSecret }}
+          TerraformOrganization: ${{ secrets.TerraformOrganization }}
           TerraformToken: ${{ secrets.TerraformToken }}
         run: |
-          cdktf deploy
+          cdktf deploy --auto-approve
