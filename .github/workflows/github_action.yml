@@ -29,6 +29,12 @@ jobs:
         run: |
           npm install --location=global cdktf-cli@latest
       - name: Run tests
+        env:
+          AzureClientID: ${{ secrets.AzureClientID }}
+          AzureTenantID: ${{ secrets.AzureTenantID }}
+          AzureSubscriptionID: ${{ secrets.AzureSubscriptionID }}
+          AzureClientSecret: ${{ secrets.AzureClientSecret }}
+          TerraformToken: ${{ secrets.TerraformToken }}
         run: |
           pipenv install
           cdktf plan
