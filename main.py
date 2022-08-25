@@ -9,6 +9,7 @@ AzureClientID = os.environ['AzureClientID']
 AzureTenantID = os.environ['AzureTenantID']
 AzureSubscriptionID = os.environ['AzureSubscriptionID']
 AzureClientSecret = os.environ['AzureClientSecret']
+TerraformOrganization = os.environ['TerraformOrganization']
 TerraformToken = os.environ['TerraformToken']
 
 
@@ -50,7 +51,7 @@ stack = MyStack(app, "azure-python")
 
 RemoteBackend(stack,
               hostname='app.terraform.io',
-              organization='orion-global',
+              organization=TerraformOrganization,
               workspaces=NamedRemoteWorkspace('azure-python'),
               token=TerraformToken
               )
