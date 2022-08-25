@@ -22,15 +22,15 @@ jobs:
           python-version: 3.7
       - name: Install pipenv
         run: pip install pipenv
-      - name: Run tests
-        run: |
-          pipenv install --dev
-          pipenv run pytest
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm install --global cdktf-cli@latest
+      - name: Install cdktf-cli
+        run: |
+          npm install --global cdktf-cli@latest
+      - name: Run tests
+        run: |
+          cdktf --version
 
 
   close_pull_request_job:
