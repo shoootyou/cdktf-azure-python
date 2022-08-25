@@ -9,6 +9,7 @@ AzureClientID = os.environ['AzureClientID']
 AzureTenantID = os.environ['AzureTenantID']
 AzureSubscriptionID = os.environ['AzureSubscriptionID']
 AzureClientSecret = os.environ['AzureClientSecret']
+TerraformToken = os.environ['TerraformToken']
 
 
 class MyStack(TerraformStack):
@@ -27,12 +28,12 @@ class MyStack(TerraformStack):
 
         gruporecursos = ResourceGroup(self,
                                       id_="central-rg",
-                                      name="rg-temporal-001",
+                                      name="rg-tempo-001",
                                       location="eastus")
 
         StorageAccount(self,
                        id_="central-storage",
-                       name="storagegprueba003423523",
+                       name="stopythoncdktf0987123",
                        location=gruporecursos.location,
                        resource_group_name=gruporecursos.name,
                        account_tier="Standard",
@@ -41,10 +42,12 @@ class MyStack(TerraformStack):
 
 app = App()
 stack = MyStack(app, "azure-python")
-# RemoteBackend(stack,
-#              hostname='app.terraform.io',
-#              organization='orion-global',
-#              workspaces=NamedRemoteWorkspace('azure-python')
-#              )
+
+RemoteBackend(stack,
+             hostname='app.terraform.io',
+             organization='orion-global',
+             workspaces=NamedRemoteWorkspace('azure-python'),
+             token=TerraformToken
+             )
 
 app.synth()
