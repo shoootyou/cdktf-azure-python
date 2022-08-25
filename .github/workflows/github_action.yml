@@ -13,7 +13,7 @@ jobs:
   build_and_deploy_job:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
-    name: "Evaluate the pull request"
+    name: "Evaluate the app code"
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
@@ -42,7 +42,7 @@ jobs:
           AzureClientSecret: ${{ secrets.AzureClientSecret }}
           TerraformToken: ${{ secrets.TerraformToken }}
         run: |
-          cdktf plan
+          cdktf synth
 
   close_pull_request_job:
     if: github.event_name == 'push'
