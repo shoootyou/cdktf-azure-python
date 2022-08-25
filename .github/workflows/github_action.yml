@@ -30,8 +30,8 @@ jobs:
           npm install --location=global cdktf-cli@latest
       - name: Run tests
         run: |
+          pipenv install
           cdktf plan
-
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
