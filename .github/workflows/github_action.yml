@@ -1,0 +1,43 @@
+name: Github Default Action
+
+on:
+  push:
+    branches:
+      - prod
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - prod
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: "Build and deploy"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Run tests
+        run: |
+          pipenv install --dev
+          pipenv run pytest
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install --global cdktf-cli@latest
+
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: "Close Pull Request Job"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo This action is when the pull request is closed
