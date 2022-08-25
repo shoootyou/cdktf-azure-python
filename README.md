@@ -297,6 +297,5 @@ jobs:
 ## References
 
 This project is based on this information:
-* https://medium.com/@gurayy/creating-kubernetes-cluster-on-azure-with-terraform-and-python-using-cdk-for-terraform-8237ffa15092
 * https://learn.hashicorp.com/tutorials/terraform/cdktf-install
 * https://github.com/hashicorp/terraform-cdk
