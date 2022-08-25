@@ -59,19 +59,19 @@ Internally, at pipenv level the project uses these modules (it's not necessary t
 
 ## Installation process
 
-First at all you need to install nodejs and npm in your computer. Right now is necessary use npm for install cdktf (and this is not because Windows). You can compile the code by yourself but is different process, in this case use this command to install it:
+First you need to install nodejs and npm in your computer. Right now is necessary to use npm for install cdktf (and this is not because it's running on Windows). You can compile the code by yourself, but that is a different process, in this case use this command to install it:
 
 ```bash
     npm install --location=global cdktf-cli@latest
 ```
 
-After that, you could check the if the installation was successful using this command:
+After that, you could check if the installation was successful using this command:
 
 ```bash
     cdktf --version
 ```
 
-After that, you need to clone the repository in your computer. You can use the command:
+Then you need to clone the repository in your computer. You can use the command:
 
 ```bash
     git clone https://github.com/shoootyou/cdktf-azure-python.git
@@ -86,7 +86,7 @@ If you want to run locally, you must run this command first. This command will i
 
 ----
 
-**Note** This project already has the module for azure, but in case you need another providers, you need to install them, and you can do it in two different ways:
+**Note** This project already has the module for azure, but in case you need other providers, you need to install them, and you can do it in two different ways:
 
 ```bash
      pipenv install cdktf-cdktf-provider-docker
@@ -112,7 +112,7 @@ After you clone the repository, you will find a folder called `cdktf-azure-pytho
 
 ## Checking the code
 
-In the `main.py` file you can find the code for the deployment of the infrastructure.
+In the `main.py` file you can find the code for the infrastructure deployment:
 
 ```python
 #!/usr/bin/env python
@@ -123,7 +123,7 @@ from cdktf import App, TerraformStack, RemoteBackend, NamedRemoteWorkspace
 # Here you need import the provider for the infrastructure you want to deploy
 from cdktf_cdktf_provider_azurerm import AzurermProvider, AzurermProviderFeatures, ResourceGroup, StorageAccount
 
-# Always use environment values for the process, for Azure it's necessary use them for the authentication.
+# Always use environment values for the process, for Azure it's necessary to use them for the authentication.
 AzureClientID = os.environ['AzureClientID']
 AzureTenantID = os.environ['AzureTenantID']
 AzureSubscriptionID = os.environ['AzureSubscriptionID']
@@ -132,7 +132,7 @@ TerraformOrganization = os.environ['TerraformOrganization']
 TerraformToken = os.environ['TerraformToken']
 
 
-class MyStack(TerraformStack): # This is the priimary class for whole the process
+class MyStack(TerraformStack): # This is the priimary class for the whole process
     def __init__(self, scope: Construct, ns: str):
         super().__init__(scope, ns)
 
@@ -148,7 +148,7 @@ class MyStack(TerraformStack): # This is the priimary class for whole the proces
                         subscription_id=AzureSubscriptionID
                         )
 
-        # Each resource must be invocked in the constructor of the class and use "id_" for Terraform identification
+        # Each resource must be invoke in the constructor of the class and use "id_" for Terraform identification
 
         rg_central_001 = ResourceGroup(self,
                                       id_="central-rg",
@@ -177,7 +177,7 @@ app = App()
 stack = MyStack(app, "azure-python")
 
 #----------------------------------------------------------------------------------------------------------------------
-# Finally, this block is for terraform cloud registration, you need the orgazaition and the token for the operation and use remote state in Terraform Cloud.
+# Finally, this block is for terraform cloud registration, you need the organization and the token for the operation and use remote state in Terraform Cloud.
 # This is optional, if you don't use it, you can use local state.
 
 RemoteBackend(stack,
@@ -208,7 +208,7 @@ Also, you can run `plan` and `destroy` actions as you use it with terraform bina
 
 ## Deploying the infrastructure (Using GitHub Actions)
 
-The project also have the GitHub Actions for deploy the infrastructure. Basically, the action prepare the environment installing the tools and the prerequisites for the deployment. Use two scenarios, one for test your code and the second for the deployment. In future releases will be added more scenarios.
+The project also have the GitHub Actions to deploy the infrastructure. Basically, the action prepares the environment installing the tools and the prerequisites for the deployment. Use two scenarios, one for test your code and the second for the deployment. In future releases will be added more scenarios.
 
 ```yaml
 name: CDKTF Python Action
@@ -297,5 +297,6 @@ jobs:
 ## References
 
 This project is based on this information:
+* https://medium.com/@gurayy/creating-kubernetes-cluster-on-azure-with-terraform-and-python-using-cdk-for-terraform-8237ffa15092
 * https://learn.hashicorp.com/tutorials/terraform/cdktf-install
 * https://github.com/hashicorp/terraform-cdk
