@@ -26,7 +26,7 @@ class MyStack(TerraformStack):
                         subscription_id=AzureSubscriptionID
                         )
 
-        gruporecursos = ResourceGroup(self,
+        rg_central_001 = ResourceGroup(self,
                                       id_="central-rg",
                                       name="rg-tempo-001",
                                       location="eastus")
@@ -34,20 +34,25 @@ class MyStack(TerraformStack):
         StorageAccount(self,
                        id_="central-storage",
                        name="stopythoncdktf0987123",
-                       location=gruporecursos.location,
-                       resource_group_name=gruporecursos.name,
+                       location=rg_central_001.location,
+                       resource_group_name=rg_central_001.name,
                        account_tier="Standard",
                        account_replication_type="LRS")
+
+        rg_shared_001 = ResourceGroup(self,
+                                      id_="rg_shared_001",
+                                      name="rg-shared-001",
+                                      location="eastus")
 
 
 app = App()
 stack = MyStack(app, "azure-python")
 
 RemoteBackend(stack,
-             hostname='app.terraform.io',
-             organization='orion-global',
-             workspaces=NamedRemoteWorkspace('azure-python'),
-             token=TerraformToken
-             )
+              hostname='app.terraform.io',
+              organization='orion-global',
+              workspaces=NamedRemoteWorkspace('azure-python'),
+              token=TerraformToken
+              )
 
 app.synth()
